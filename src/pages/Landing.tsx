@@ -31,7 +31,6 @@ export default function Landing() {
                 <CraftVillages />
                 <Partners />
                 <HowItWorks />
-                <Pricing />
                 <Donation />
                 <Testimonials />
                 <Newsletter />

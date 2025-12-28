@@ -11,6 +11,7 @@ import TypingIndicator from '@/components/chat/TypingIndicator'
 import StartChatPrompt from '@/components/chat/StartChatPrompt'
 import { chatApi } from '@/lib/chat-api'
 import { useWebSocket } from '@/lib/useWebSocket'
+import { parseBackendDate } from '@/lib/utils'
 import type { ChatRoom, ChatMessage, TypingIndicator as TypingIndicatorType } from '@/lib/chat-types'
 
 export default function Chat() {
@@ -92,7 +93,7 @@ export default function Chat() {
             
             const room = prev[roomIndex]
             // Only update if the message is actually newer
-            if (room.lastMessageAt && new Date(message.createdAt) <= new Date(room.lastMessageAt)) {
+            if (room.lastMessageAt && parseBackendDate(message.createdAt) <= parseBackendDate(room.lastMessageAt)) {
                 return prev
             }
             
@@ -517,7 +518,7 @@ export default function Chat() {
     // Format date for message grouping
     const formatDateDivider = (dateString: string): string => {
         // Parse the date string - handle both ISO format and other formats
-        const date = new Date(dateString)
+        const date = parseBackendDate(dateString)
         
         // Validate date
         if (isNaN(date.getTime())) {
@@ -549,14 +550,14 @@ export default function Chat() {
 
     // Group messages by date
     const getDateFromMessage = (msg: ChatMessage): string => {
-        const date = new Date(msg.createdAt)
+        const date = parseBackendDate(msg.createdAt)
         // Return date key in local timezone (YYYY-MM-DD format)
         return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
     }
 
     // Format message time for timestamp dividers
     const formatMessageTime = (dateString: string): string => {
-        const date = new Date(dateString)
+        const date = parseBackendDate(dateString)
         
         // Validate date, fallback to current time if invalid
         if (isNaN(date.getTime())) {
@@ -585,8 +586,8 @@ export default function Chat() {
         if (getDateFromMessage(currentMsg) !== getDateFromMessage(previousMsg)) return false
         
         // Must be within 5 minutes
-        const currentTime = new Date(currentMsg.createdAt).getTime()
-        const previousTime = new Date(previousMsg.createdAt).getTime()
+        const currentTime = parseBackendDate(currentMsg.createdAt).getTime()
+        const previousTime = parseBackendDate(previousMsg.createdAt).getTime()
         const timeDiffMinutes = (currentTime - previousTime) / (1000 * 60)
         
         return timeDiffMinutes <= 5

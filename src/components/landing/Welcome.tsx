@@ -24,12 +24,7 @@ export default function Welcome() {
                     <Button className="bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full text-sm font-medium">
                         EXPLORE
                     </Button>
-                    <Button
-                        variant="outline"
-                        className="border-primary text-primary hover:bg-primary/10 px-8 py-3 rounded-full text-sm font-medium"
-                    >
-                        SUBSCRIBE
-                    </Button>
+
                 </div>
             </div>
         </section>
