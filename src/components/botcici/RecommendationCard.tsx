@@ -115,7 +115,7 @@ export default function RecommendationCard({
               className="flex-1 gap-1.5 text-xs h-8"
             >
               <Eye className="h-3.5 w-3.5" />
-              Xem thêm
+              View Details
             </Button>
           )}
           
@@ -128,7 +128,7 @@ export default function RecommendationCard({
               className="gap-1.5 text-xs h-8"
             >
               <GitCompare className="h-3.5 w-3.5" />
-              So sánh
+              Compare
             </Button>
           )}
           
